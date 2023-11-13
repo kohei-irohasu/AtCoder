@@ -50,3 +50,41 @@ print('Yes' if flag else 'No')
 
 
 #D問題
+import sys
+sys.setrecursionlimit(10**6)
+
+# 深さ優先探索
+def dfs(node, cur_color):
+    global colors
+    
+    colors[node] = cur_color
+    for next_node in G[node]:
+        if colors[next_node] != -1:
+            if colors[next_node] == cur_color:
+                return False
+            continue
+        if not dfs(next_node, 1 - cur_color):
+            return False
+    return True
+
+# 入力
+N, M = map(int, input().split())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
+# 隣接リストの作成
+G = [[] for _ in range(N + 1)]
+colors = [-1] * (N + 1)
+for i in range(M):
+    G[A[i]].append(B[i])
+    G[B[i]].append(A[i])
+
+# 二部グラフかどうかの判定
+result = True
+for i in range(1, N + 1):
+    if colors[i] != -1:
+        continue
+    if not dfs(i, 0):
+        result = False
+
+print('Yes' if result else 'No')
