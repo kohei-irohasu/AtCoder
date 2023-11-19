@@ -55,3 +55,23 @@ for i in range(h):
         ans += 1
 
 print(ans)
+
+
+# D問題
+import heapq
+N = int(input())
+TD = sorted([list(map(int, input().split())) for _ in range(N)])
+TD.append([10 ** 20, 10 ** 20])
+Q = []
+Currenttime = 0
+ans = 0
+
+for t, d in TD:
+    while Q and Currenttime < t:
+        q = heapq.heappop(Q)
+        if q >= Currenttime:
+            ans += 1
+            Currenttime += 1
+    heapq.heappush(Q, t+d)
+    Currenttime = t
+print(ans)
