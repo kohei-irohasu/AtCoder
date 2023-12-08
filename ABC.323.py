@@ -58,3 +58,21 @@ for i in range(N):
     
 
 # D問題
+n = int(input())
+data = [list(map(int, input().split())) for _ in range(n)]
+
+kind = set()
+for s, c in data:
+    while c >= 1:
+        if s in kind:  # kindにあったら、数を+1して、kindから削除
+            c += 1
+            kind.discard(s)
+        if c == 1:     # 1っ匹だったら、kindに追加
+            kind.add(s)
+            break
+        if c % 2 == 1: # 奇数だったら追加
+            kind.add(s)
+        c //= 2   # 新しく生成されるスライムの数
+        s *= 2    # 新しく生成されるスライムの大きさ
+
+print(len(kind))
