@@ -58,6 +58,8 @@ for i in range(N):
     
 
 # D問題
+# スライムを割れるだけ割る。最終的に0か1。
+# set()でサイズを管理。
 n = int(input())
 data = [list(map(int, input().split())) for _ in range(n)]
 
