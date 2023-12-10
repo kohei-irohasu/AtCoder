@@ -38,3 +38,18 @@ for i in range(n - 1):
 
 for l, r in lr:
     print(b[r - 1] - b[l - 1])
+
+
+# D問題
+# dequeになれる、使えるようになるべし。
+from collections import deque
+
+s = input()
+dq = deque()
+for c in s:
+    dq.append(c)
+    if len(dq) >= 3 and dq[-3] == 'A' and dq[-2] == 'B' and dq[-1] == 'C':
+        for _ in range(3):
+            dq.pop()
+        
+print("".join(dq))
