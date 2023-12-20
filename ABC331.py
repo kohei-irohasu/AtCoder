@@ -45,3 +45,33 @@ for i in range(n - 1):
     tmp += sort_a[i]
     
 print(*[d[i] for i in a])
+
+
+# D問題
+# 累積和。グリッドはnの周期で繰り返し。
+# 2次元の累積和。
+n, q = map(int, input().split())
+p = list(input() for _ in range(n))
+
+# 2次元配列の累積和の計算
+pcsum = [[0] * (n + 1) for _ in range(n + 1)]
+for i in range(n):
+    for j in range(n):
+        pcsum[i + 1][j + 1] = pcsum[i][j + 1] + pcsum[i + 1][j] - pcsum[i][j]
+        if p[i][j] == 'B':
+            pcsum[i + 1][j + 1] += 1
+
+# i, jまでの部分和の計算
+def f(i, j):
+    ans = 0
+    ans += (i // n) * (j // n) * pcsum[n][n]    # n*nグリッドが何個あるか？
+    ans += (j // n) * pcsum[i % n][n]     # 下に横に何個あるか？     
+    ans += (i // n) * pcsum[n][j % n]     # 横に縦に何個あるか？
+    ans += pcsum[i % n][j % n]  # 最後のあまり1マス分
+    
+    return ans
+
+for _ in range(q):
+    x1, y1, x2, y2 = map(int, input().split())
+    x2, y2 = x2 + 1, y2 + 1
+    print(f(x2, y2) + f(x1, y1) - f(x1, y2) - f(x2, y1))
