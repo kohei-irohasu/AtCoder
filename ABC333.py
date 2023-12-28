@@ -43,3 +43,32 @@ for i in range(l):
             n -= 1
             if n == 0:
                 print(r[i] + r[j] + r[k])
+
+
+# D問題
+# 頂点1の各子供の部分木の頂点数を求め、
+# その最大の部分木を抜いた部分の合計を求めればよい。
+# DFSで子供の頂点数を求める。
+n = int(input())
+g = [list() for _ in range(n + 1)]
+for i in range(n - 1):
+    u, v = map(int, input().split())
+    g[u].append(v)
+    g[v].append(u)
+
+childs = g[1].copy()
+m = len(childs)
+cnt = [0] * m
+for i in range(m):
+    stack = []
+    stack.append([childs[i], 1])  #[頂点, 親]
+    while stack:
+        u, p = stack.pop()
+        cnt[i] += 1
+        for v in g[u]:
+            if v == p:  # 葉だったら、とばす。
+                continue
+            stack.append([v, u])
+
+cnt = sorted(cnt)    
+print(sum(cnt[:-1]) + 1)
