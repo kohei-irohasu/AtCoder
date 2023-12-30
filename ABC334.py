@@ -4,7 +4,7 @@ print('Bat' if b > g else 'Glove')
 
 
 # B問題
-# LからRみたいな問題は差を考える。
+# LからRみたいな問題は累積和の利用を考える。
 # それぞれmがどれだけあるか考える。
 a, m, l, r = map(int, input().split())
 
