@@ -39,3 +39,30 @@ else:
         ans = min(now, ans)
     print(ans)
 
+
+# D問題
+# 数が大きいので、
+# 累積和をもって、二分探索を利用する。
+n, q = map(int, input().split())
+r = list(map(int, input().split()))
+r.sort()
+
+s = [0] * (n + 1)
+for i in range(n):
+    s[i + 1] = s[i] + r[i]
+
+def upper_bound(target):
+    left, right = 0, len(s)
+    
+    while left < right:
+        mid = left + (right - left) // 2
+        if s[mid] <= target:
+            left = mid + 1
+        else:
+            right = mid
+    return left - 1
+
+for _ in range(q):
+    x = int(input())
+    ans = upper_bound(x)
+    print(ans)
